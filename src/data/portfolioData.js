@@ -52,7 +52,7 @@ export const EDUCATION = [
   {
     title: "SMK Taruna Bhakti",
     subtitle: "Sekolah Menengah Kejuruan",
-    date: "2024 – 2027",
+    date: "2025 – 2029",
     logo: "/assets/smk-taruna-bhakti.png",
   },
   {
@@ -67,7 +67,7 @@ export const EXPERIENCE = [
   {
     title: "Peking University",
     subtitle: "Admin & Executive Operations",
-    date: "2025 – Sekarang",
+    date: "bissmillah di terima",
     logo: "/assets/peking-university-logo.png",
   },
 ];

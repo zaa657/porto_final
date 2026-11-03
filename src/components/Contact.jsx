@@ -16,31 +16,18 @@ import { useSound } from '../context/SoundContext';
 const COMMENTS_STORAGE_KEY = 'ejaathala-portfolio-comments';
 const COOLDOWN_SECONDS = 30;
 
-const INITIAL_COMMENTS = [
-  {
-    id: 'seed-1',
-    name: 'Manny Ribera',
-    message: 'Portofolio 3D-nya gila bro! The World Is Yours 🔥',
-    photo: '',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 5).toISOString(),
-  },
-  {
-    id: 'seed-2',
-    name: 'Elvira Hancock',
-    message: 'Desain Dark Luxury Crimson & Gold-nya sangat elegan dan responsif!',
-    photo: '',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 24).toISOString(),
-  },
-];
+const INITIAL_COMMENTS = [];
 
 function loadSavedComments() {
   try {
     const raw = localStorage.getItem(COMMENTS_STORAGE_KEY);
-    if (!raw) return INITIAL_COMMENTS;
+    if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length ? parsed : INITIAL_COMMENTS;
+    return Array.isArray(parsed)
+      ? parsed.filter((item) => item.id !== 'seed-1' && item.id !== 'seed-2')
+      : [];
   } catch {
-    return INITIAL_COMMENTS;
+    return [];
   }
 }
 
