@@ -1,8 +1,8 @@
 export const PROFILE = {
-  brand: "Montana.dev",
-  mobileBrand: "MontanaDev.",
-  fullName: "Tony Montana",
-  greetingNameLines: ["Tony", "Montana"],
+  brand: "Ejaa.dev",
+  mobileBrand: "EjaaThala.",
+  fullName: "Ejaa Thala",
+  greetingNameLines: ["Ejaa", "Thala"],
   photoUrl: "/assets/tony-montana.jpg",
   roles: [
     "3D Creative Developer",
@@ -27,14 +27,14 @@ export const PROFILE = {
     {
       name: "Instagram",
       label: "Instagram",
-      sub: "@tonymontana.dev",
+      sub: "@ejaathala.dev",
       url: "https://www.instagram.com/alfariyusuff_/",
       logo: "https://cdn.simpleicons.org/instagram/f43f5e",
     },
     {
       name: "TikTok",
       label: "TikTok",
-      sub: "@montana.world",
+      sub: "@ejaathala",
       url: "https://www.tiktok.com/@mie_ayamm__3",
       logo: "https://cdn.simpleicons.org/tiktok/f8fafc",
     },

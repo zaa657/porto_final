@@ -13,7 +13,7 @@ import { SkeletonImage } from './SkeletonImage';
 import { PROFILE } from '../data/portfolioData';
 import { useSound } from '../context/SoundContext';
 
-const COMMENTS_STORAGE_KEY = 'montana-portfolio-comments';
+const COMMENTS_STORAGE_KEY = 'ejaathala-portfolio-comments';
 const COOLDOWN_SECONDS = 30;
 
 const INITIAL_COMMENTS = [

@@ -236,7 +236,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.textBaseline = 'middle';
   ctx.fillText('EXECUTIVE', 239, 90);
 
-  // Top right emblem + "MONTANA / ENTERPRISES / MIAMI"
+  // Top right emblem + "EJAA THALA / ENTERPRISE"
   ctx.save();
   ctx.translate(710, 88);
   ctx.fillStyle = '#8b1122';
@@ -250,15 +250,15 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.font = '800 28px "Space Grotesk", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('TM', 0, 2);
+  ctx.fillText('ET', 0, 2);
   ctx.restore();
 
   ctx.fillStyle = '#1e060a';
   ctx.font = '800 28px "Space Grotesk", sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText('MONTANA', 768, 60);
+  ctx.fillText('EJAA THALA', 768, 60);
   ctx.fillText('ENTERPRISE', 768, 90);
-  ctx.fillText('MIAMI • FLA', 768, 120);
+  ctx.fillText('PORTFOLIO • IDN', 768, 120);
 
   // Technical bounding box around "DEVELOPER"
   ctx.strokeStyle = '#24070c';
@@ -375,7 +375,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
     ctx.restore();
   }
 
-  // Name Tape Banner across lower portrait: "TONY MONTANA"
+  // Name Tape Banner across lower portrait: "EJAA THALA"
   ctx.save();
   ctx.translate(398, 1072);
   ctx.rotate(0.018);
@@ -390,7 +390,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.font = '900 54px "Space Grotesk", "Arial Black", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('TONY MONTANA', 0, 2);
+  ctx.fillText('EJAA THALA', 0, 2);
   ctx.restore();
 
   // Bottom Dark Crimson-Obsidian Footer Bar
@@ -490,15 +490,15 @@ function drawBackCardCanvas(canvas) {
   ctx.font = '900 42px "Space Grotesk", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('TM', 0, 2);
+  ctx.fillText('ET', 0, 2);
   ctx.restore();
 
   ctx.fillStyle = '#24070c';
   ctx.font = '900 42px "Space Grotesk", sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText('MONTANA', 635, 118);
+  ctx.fillText('EJAA THALA', 635, 118);
   ctx.fillText('ENTERPRISES', 635, 162);
-  ctx.fillText('MIAMI • FLA', 635, 206);
+  ctx.fillText('PORTFOLIO • IDN', 635, 206);
 
   // Center Dark Panel "CONNECT OUR SOSMED" + QR Code
   ctx.fillStyle = '#180408';
@@ -571,7 +571,7 @@ function drawBackCardCanvas(canvas) {
   ctx.fillStyle = '#f3ebd9';
   ctx.font = '900 56px "Space Grotesk", sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('TONY MONTANA', 516, 1368);
+  ctx.fillText('EJAA THALA', 516, 1368);
   ctx.font = '500 38px "Inter", sans-serif';
   ctx.fillStyle = '#d4af37';
   ctx.fillText('—  Executive Developer  —', 516, 1435);
@@ -611,11 +611,11 @@ function drawStrapCanvas(canvas) {
   ctx.font = 'italic 900 52px "Space Grotesk", Arial, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('M', -230, 3);
+  ctx.fillText('E', -230, 3);
 
   ctx.font = '900 68px "Space Grotesk", "Arial Black", sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText('Tony Montana', -160, 4);
+  ctx.fillText('Ejaa Thala', -160, 4);
   ctx.restore();
 
   return h / w;
