@@ -65,10 +65,10 @@ export const EDUCATION = [
 
 export const EXPERIENCE = [
   {
-    title: "Universitas Bina Sarana Informatika",
+    title: "Peking University",
     subtitle: "Admin & Executive Operations",
     date: "2025 – Sekarang",
-    logo: "/assets/ubsi-logo.png",
+    logo: "/assets/peking-university-logo.png",
   },
 ];
 
