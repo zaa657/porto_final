@@ -510,40 +510,68 @@ function drawBackCardCanvas(canvas) {
   ctx.fillStyle = '#f3ebd9';
   ctx.font = '900 64px "Space Grotesk", sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('CONNECT OUR', 480, 412);
-  ctx.font = '500 54px "Space Grotesk", sans-serif';
-  ctx.fillText('—  SOSMED  —', 480, 482);
+  ctx.fillText('CONNECT OUR', 480, 400);
+  ctx.font = '500 50px "Space Grotesk", sans-serif';
+  ctx.fillText('—  INSTAGRAM  —', 480, 465);
 
-  // Draw crisp deterministic QR code
-  const qrSize = 510;
-  const qrX = 244;
-  const qrY = 560;
-  const cells = 21;
-  const cellW = qrSize / cells;
-  const rng = mulberry32(1983);
+  // Full real scannable QR code without middle logo or bottom text
+  const qrMatrix = [
+    '111111101001000110010100101111111',
+    '100000100011100010011100101000001',
+    '101110100111011011011101001011101',
+    '101110100010110000101011101011101',
+    '101110101111110000000111001011101',
+    '100000100110000011101111001000001',
+    '111111101010101010101010101111111',
+    '000000001101100111001110000000000',
+    '100111111101010000000010011010001',
+    '011011000001010001110101010110101',
+    '011000110110000100111000100000001',
+    '000011010011101010111100010110010',
+    '110110110010100100100000110011010',
+    '110011000011111111101001001011010',
+    '011000100110010101000100000111000',
+    '100101001110101101110000111010110',
+    '101110101100100101110110110010010',
+    '001111011100000110110101110001111',
+    '111000100110010101011011011001111',
+    '010110010000110010011111000111001',
+    '101001111010011010001001001101101',
+    '001111011100000110110011110000111',
+    '000111111101101011100101100110101',
+    '101001001110101011100111010001011',
+    '000001111001111111111110111110011',
+    '000000001100011100010111100010111',
+    '111111101010101110001001101011111',
+    '100000101000011000111110100011100',
+    '101110101000101110001000111111100',
+    '101110101110111001101000001011010',
+    '101110100100000001000000010000100',
+    '100000100111001011100111111101000',
+    '111111101001000000011001000100001',
+  ];
+  const cells = qrMatrix.length;
+  const cellW = 16;
+  const qrInnerSize = cells * cellW;
+  const pad = 24;
+  const qrBoxSize = qrInnerSize + pad * 2;
+  const qrBoxX = 480 - qrBoxSize / 2;
+  const qrBoxY = 530;
 
-  const isFinder = (r, c) =>
-    (r < 7 && c < 7) || (r < 7 && c >= cells - 7) || (r >= cells - 7 && c < 7);
+  // White quiet-zone card for reliable scanning
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.roundRect(qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 16);
+  ctx.fill();
 
-  const drawFinder = (r0, c0) => {
-    ctx.fillStyle = '#f3ebd9';
-    ctx.fillRect(qrX + c0 * cellW, qrY + r0 * cellW, 7 * cellW, 7 * cellW);
-    ctx.fillStyle = '#180408';
-    ctx.fillRect(qrX + (c0 + 1) * cellW, qrY + (r0 + 1) * cellW, 5 * cellW, 5 * cellW);
-    ctx.fillStyle = '#f3ebd9';
-    ctx.fillRect(qrX + (c0 + 2) * cellW, qrY + (r0 + 2) * cellW, 3 * cellW, 3 * cellW);
-  };
-
-  drawFinder(0, 0);
-  drawFinder(0, cells - 7);
-  drawFinder(cells - 7, 0);
-
-  ctx.fillStyle = '#f3ebd9';
+  ctx.fillStyle = '#0a0204';
+  const qrStartX = qrBoxX + pad;
+  const qrStartY = qrBoxY + pad;
   for (let r = 0; r < cells; r++) {
+    const row = qrMatrix[r];
     for (let c = 0; c < cells; c++) {
-      if (isFinder(r, c)) continue;
-      if (rng() > 0.46) {
-        ctx.fillRect(qrX + c * cellW, qrY + r * cellW, cellW - 1, cellW - 1);
+      if (row[c] === '1') {
+        ctx.fillRect(qrStartX + c * cellW, qrStartY + r * cellW, cellW, cellW);
       }
     }
   }
