@@ -27,15 +27,15 @@ export const PROFILE = {
     {
       name: "Instagram",
       label: "Instagram",
-      sub: "@ejaathala.dev",
-      url: "https://www.instagram.com/alfariyusuff_/",
+      sub: "@portofolio.thala",
+      url: "https://www.instagram.com/portofolio.thala/",
       logo: "https://cdn.simpleicons.org/instagram/f43f5e",
     },
     {
       name: "TikTok",
       label: "TikTok",
-      sub: "@ejaathala",
-      url: "https://www.tiktok.com/@mie_ayamm__3",
+      sub: "@n9786477414",
+      url: "https://www.tiktok.com/@n9786477414",
       logo: "https://cdn.simpleicons.org/tiktok/f8fafc",
     },
     {
