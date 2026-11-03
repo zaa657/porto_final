@@ -52,7 +52,7 @@ export const EDUCATION = [
   {
     title: "SMK Taruna Bhakti",
     subtitle: "Sekolah Menengah Kejuruan",
-    date: "2025 – 2029",
+    date: "2025 – 2028",
     logo: "/assets/smk-taruna-bhakti.png",
   },
   {
