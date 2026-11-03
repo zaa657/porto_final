@@ -11,6 +11,6 @@
     </linearGradient>
   </defs>
   <rect width="64" height="64" rx="16" fill="url(#bg)" stroke="url(#accent)" stroke-width="2.5" />
-  <path d="M12 20H32V25H25V46H19V25H12V20Z" fill="url(#accent)" />
-  <path d="M31 20H37L42 33L47 20H53V46H47.5V30L43 41H41L36.5 30V46H31V20Z" fill="#f8fafc" />
+  <path d="M14 19H30V24.5H20.5V29.5H28.5V34.5H20.5V39.5H30V45H14V19Z" fill="url(#accent)" />
+  <path d="M33 19H51V24.5H45V45H39V24.5H33V19Z" fill="#f8fafc" />
 </svg>
