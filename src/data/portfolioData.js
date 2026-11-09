@@ -4,7 +4,7 @@ export const PROFILE = {
   fullName: "Ejaa Thala",
   greetingNameLines: ["Ejaa", "Thala"],
   photoUrl: "/assets/ejaa-thala.png",
-  hoverPhotoUrl: "/assets/ejaa-thala-hover.jpg",
+  hoverPhotoUrl: "/assets/ejaa-thala-hover.png",
   roles: [
     "3D Creative Developer",
     "React & Three.js Enthusiast",

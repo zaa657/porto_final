@@ -1111,11 +1111,11 @@ body,
   width: 100%;
   max-width: 380px;
   height: 100%;
-  border-radius: 26px;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(245, 158, 11, 0.28);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(220, 38, 38, 0.22);
+  border: none;
+  box-shadow: none;
+  background: transparent;
   -webkit-mask-image: linear-gradient(#000 0% 82%, #000000bd 93%, #0000 100%);
   mask-image: linear-gradient(#000 0% 82%, #000000bd 93%, #0000 100%);
 }
@@ -1131,6 +1131,12 @@ body,
   inset: 0;
 }
 
+.about-person-image.is-loading,
+.about-spider-image.is-loading {
+  background: transparent;
+  animation: none;
+}
+
 .about-person-image {
   z-index: 1;
   filter: contrast(1.04) saturate(1.05);
@@ -1138,15 +1144,15 @@ body,
 
 .about-portrait-stage[data-spider-visible="true"] .about-person-image {
   -webkit-mask-image: radial-gradient(
-    circle 140px at var(--hover-x, 50%) var(--hover-y, 50%),
+    circle 145px at var(--hover-x, 50%) var(--hover-y, 50%),
     transparent 0%,
-    transparent 48%,
+    transparent 55%,
     #000 100%
   );
   mask-image: radial-gradient(
-    circle 140px at var(--hover-x, 50%) var(--hover-y, 50%),
+    circle 145px at var(--hover-x, 50%) var(--hover-y, 50%),
     transparent 0%,
-    transparent 48%,
+    transparent 55%,
     #000 100%
   );
 }
@@ -1154,18 +1160,17 @@ body,
 .about-spider-image {
   z-index: 2;
   opacity: 0;
-  filter: contrast(1.08) saturate(1.1) brightness(1.04)
-    drop-shadow(0 0 24px rgba(168, 85, 247, 0.55));
+  filter: contrast(1.06) saturate(1.08) brightness(1.03);
   -webkit-mask-image: radial-gradient(
-    circle 140px at var(--hover-x, 50%) var(--hover-y, 50%),
+    circle 145px at var(--hover-x, 50%) var(--hover-y, 50%),
     #000 0%,
-    #000 60%,
+    #000 62%,
     transparent 100%
   );
   mask-image: radial-gradient(
-    circle 140px at var(--hover-x, 50%) var(--hover-y, 50%),
+    circle 145px at var(--hover-x, 50%) var(--hover-y, 50%),
     #000 0%,
-    #000 60%,
+    #000 62%,
     transparent 100%
   );
   transition: opacity 0.2s ease;
