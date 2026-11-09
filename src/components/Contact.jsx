@@ -160,13 +160,41 @@ export function Contact() {
     }, 350);
   };
 
-  const handleContactSubmit = (e) => {
+  const handleContactSubmit = async (e) => {
     e.preventDefault();
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const message = formData.message.trim();
+    if (!name || !email || !message) return;
+
     setMsgError('');
+    setMsgSuccess(false);
     setSendingMsg(true);
 
-    setTimeout(() => {
-      setSendingMsg(false);
+    try {
+      const targetEmail = PROFILE.contactEmail || 'zaatala3@gmail.com';
+      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          Nama: name,
+          Email: email,
+          Pesan: message,
+          _replyto: email,
+          _subject: `Pesan Portofolio Baru dari ${name}`,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data.success === 'false' || data.success === false) {
+        throw new Error(data.message || 'Gagal mengirim pesan.');
+      }
+
       setMsgSuccess(true);
       setFormData({ name: '', email: '', message: '' });
       playSfx('success');
@@ -178,8 +206,12 @@ export function Contact() {
           colors: ['#dc2626', '#f59e0b', '#fbbf24', '#fb7185'],
         });
       } catch {}
-      setTimeout(() => setMsgSuccess(false), 5000);
-    }, 500);
+      setTimeout(() => setMsgSuccess(false), 6000);
+    } catch {
+      setMsgError('Gagal mengirim pesan otomatis. Silakan coba lagi beberapa saat.');
+    } finally {
+      setSendingMsg(false);
+    }
   };
 
   return (

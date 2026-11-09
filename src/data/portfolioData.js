@@ -2,6 +2,7 @@ export const PROFILE = {
   brand: "Ejaa.dev",
   mobileBrand: "EjaaThala.",
   fullName: "Ejaa Thala",
+  contactEmail: "zaatala3@gmail.com",
   greetingNameLines: ["Ejaa", "Thala"],
   photoUrl: "/assets/ejaa-thala.png",
   hoverPhotoUrl: "/assets/ejaa-thala-hover.png",
