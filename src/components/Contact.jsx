@@ -192,7 +192,13 @@ export function Contact() {
 
       const data = await response.json().catch(() => ({}));
       if (!response.ok || data.success === 'false' || data.success === false) {
-        throw new Error(data.message || 'Gagal mengirim pesan.');
+        const rawMsg = String(data.message || '');
+        if (rawMsg.toLowerCase().includes('activation')) {
+          throw new Error(
+            'Email aktivasi sudah dikirim ke zaatala3@gmail.com! Silakan buka Inbox/Spam Gmail Anda lalu klik tombol "Activate Form" (cukup 1 kali saja).'
+          );
+        }
+        throw new Error(data.message || 'Gagal mengirim pesan otomatis. Silakan coba lagi beberapa saat.');
       }
 
       setMsgSuccess(true);
@@ -207,8 +213,12 @@ export function Contact() {
         });
       } catch {}
       setTimeout(() => setMsgSuccess(false), 6000);
-    } catch {
-      setMsgError('Gagal mengirim pesan otomatis. Silakan coba lagi beberapa saat.');
+    } catch (err) {
+      setMsgError(
+        err instanceof Error && err.message
+          ? err.message
+          : 'Gagal mengirim pesan otomatis. Silakan coba lagi beberapa saat.'
+      );
     } finally {
       setSendingMsg(false);
     }
