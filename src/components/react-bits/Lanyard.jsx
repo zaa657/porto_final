@@ -343,7 +343,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.fillText('WORLD IS YOURS', 0, 0);
   ctx.restore();
 
-  // Center Portrait of Tony Montana
+  // Center Portrait of Ejaa Thala
   if (photoImg) {
     ctx.save();
     // Draw portrait centered with dramatic shadow
@@ -940,7 +940,7 @@ function stepPhysics(state, dt, params, elapsed) {
 }
 
 export function Lanyard({
-  photoUrl = '/assets/tony-montana.jpg',
+  photoUrl = '/assets/ejaa-thala.png',
   orientation = 'portrait',
   finish = 'glossy',
   cornerRadius = 0.25,
@@ -1567,7 +1567,7 @@ export function HeroLanyardSection({ introFinished }) {
     >
       <div className="lanyard-viewport">
         <Lanyard
-          photoUrl="/assets/tony-montana.jpg"
+          photoUrl="/assets/ejaa-thala.png"
           finish="glossy"
           anchor={isMobile ? 'center' : 'right'}
           orientation="portrait"

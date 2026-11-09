@@ -3,7 +3,7 @@ export const PROFILE = {
   mobileBrand: "EjaaThala.",
   fullName: "Ejaa Thala",
   greetingNameLines: ["Ejaa", "Thala"],
-  photoUrl: "/assets/tony-montana.jpg",
+  photoUrl: "/assets/ejaa-thala.png",
   roles: [
     "3D Creative Developer",
     "React & Three.js Enthusiast",
