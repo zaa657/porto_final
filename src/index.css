@@ -1136,35 +1136,43 @@ body,
   filter: contrast(1.04) saturate(1.05);
 }
 
+.about-portrait-stage[data-spider-visible="true"] .about-person-image {
+  -webkit-mask-image: radial-gradient(
+    circle 140px at var(--hover-x, 50%) var(--hover-y, 50%),
+    transparent 0%,
+    transparent 48%,
+    #000 100%
+  );
+  mask-image: radial-gradient(
+    circle 140px at var(--hover-x, 50%) var(--hover-y, 50%),
+    transparent 0%,
+    transparent 48%,
+    #000 100%
+  );
+}
+
 .about-spider-image {
   z-index: 2;
   opacity: 0;
-  filter: sepia(0.5) hue-rotate(-38deg) saturate(2.9) contrast(1.28) brightness(1.12)
-    drop-shadow(0 0 24px #dc262699);
+  filter: contrast(1.08) saturate(1.1) brightness(1.04)
+    drop-shadow(0 0 24px rgba(168, 85, 247, 0.55));
   -webkit-mask-image: radial-gradient(
-    circle 125px at var(--hover-x, 50%) var(--hover-y, 50%),
+    circle 140px at var(--hover-x, 50%) var(--hover-y, 50%),
     #000 0%,
-    #000 58%,
+    #000 60%,
     transparent 100%
   );
   mask-image: radial-gradient(
-    circle 125px at var(--hover-x, 50%) var(--hover-y, 50%),
+    circle 140px at var(--hover-x, 50%) var(--hover-y, 50%),
     #000 0%,
-    #000 58%,
+    #000 60%,
     transparent 100%
   );
-  transition: opacity 0.18s;
-}
-
-.about-portrait-stage.is-in-view:not(.spider-hovered):not([data-spider-visible="true"])
-  .about-spider-image {
-  animation: 7s ease-in-out infinite idle-spider-blink;
-  -webkit-mask-image: none;
-  mask-image: none;
+  transition: opacity 0.2s ease;
 }
 
 .about-portrait-stage[data-spider-visible="true"] .about-spider-image {
-  opacity: 0.92;
+  opacity: 1;
   animation: none;
 }
 

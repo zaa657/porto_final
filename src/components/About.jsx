@@ -94,7 +94,7 @@ export function About() {
             />
             <SkeletonImage
               className="about-spider-image"
-              src={PROFILE.photoUrl}
+              src={PROFILE.hoverPhotoUrl || PROFILE.photoUrl}
               alt=""
               aria-hidden="true"
             />
