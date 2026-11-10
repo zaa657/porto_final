@@ -3,6 +3,7 @@ export const PROFILE = {
   mobileBrand: "EjaaThala.",
   fullName: "Ejaa Thala",
   contactEmail: "zaatala3@gmail.com",
+  ntfyTopic: "thalaa-porto-notif",
   greetingNameLines: ["Ejaa", "Thala"],
   photoUrl: "/assets/ejaa-thala.png",
   hoverPhotoUrl: "/assets/ejaa-thala-hover.png",

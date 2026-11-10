@@ -132,6 +132,45 @@ export function Contact() {
     }
   };
 
+  const notifyCommentToPhone = (name, message) => {
+    const targetEmail = PROFILE.contactEmail || 'zaatala3@gmail.com';
+    const ntfyTopic = PROFILE.ntfyTopic || 'thalaa-porto-notif';
+    const waktu = new Date().toLocaleString('id-ID', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    });
+
+    // 1. Instant Push Notification ke HP via ntfy.sh
+    fetch(`https://ntfy.sh/${encodeURIComponent(ntfyTopic)}`, {
+      method: 'POST',
+      headers: {
+        Title: `Komentar Baru dari ${name}`,
+        Priority: 'high',
+        Tags: 'speech_balloon,sparkles',
+        Click: 'https://www.thalaa.my.id/#Contact',
+      },
+      body: `${name}: "${message}" (${waktu})`,
+    }).catch(() => {});
+
+    // 2. Notifikasi ke aplikasi Gmail di HP via FormSubmit
+    fetch(`https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        Tipe: 'Komentar Baru di Portofolio',
+        Nama: name,
+        Komentar: message,
+        Waktu: waktu,
+        _subject: `💬 Komentar Baru di Portofolio dari ${name}`,
+        _template: 'table',
+        _captcha: 'false',
+      }),
+    }).catch(() => {});
+  };
+
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     setCommentError('');
@@ -140,6 +179,8 @@ export function Contact() {
     if (!name || !message) return;
 
     setPostingComment(true);
+    notifyCommentToPhone(name, message);
+
     setTimeout(() => {
       const newComment = {
         id: `c-${Date.now()}`,
@@ -157,6 +198,14 @@ export function Contact() {
       setCooldown(COOLDOWN_SECONDS);
       setCommentForm({ name: '', message: '', photo: '', photoName: '' });
       playSfx('success');
+      try {
+        confetti({
+          particleCount: 55,
+          spread: 60,
+          origin: { y: 0.65 },
+          colors: ['#dc2626', '#f59e0b', '#fbbf24'],
+        });
+      } catch {}
     }, 350);
   };
 
@@ -173,6 +222,20 @@ export function Contact() {
 
     try {
       const targetEmail = PROFILE.contactEmail || 'zaatala3@gmail.com';
+      const ntfyTopic = PROFILE.ntfyTopic || 'thalaa-porto-notif';
+
+      // Kirim juga ke ntfy agar muncul notif instan di HP
+      fetch(`https://ntfy.sh/${encodeURIComponent(ntfyTopic)}`, {
+        method: 'POST',
+        headers: {
+          Title: `Pesan Diskusi dari ${name}`,
+          Priority: 'high',
+          Tags: 'incoming_envelope,fire',
+          Click: `mailto:${email}`,
+        },
+        body: `Dari: ${name} (${email})\nPesan: ${message}`,
+      }).catch(() => {});
+
       const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`, {
         method: 'POST',
         headers: {
