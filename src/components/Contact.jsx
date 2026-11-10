@@ -14,18 +14,40 @@ import { PROFILE } from '../data/portfolioData';
 import { useSound } from '../context/SoundContext';
 
 const COMMENTS_STORAGE_KEY = 'ejaathala-portfolio-comments';
+const NTFY_DB_TOPIC = 'thalaa-porto-comments-db-v1';
 const COOLDOWN_SECONDS = 30;
 
-const INITIAL_COMMENTS = [];
+function mergeCommentLists(...lists) {
+  const map = new Map();
+  for (const list of lists) {
+    if (!Array.isArray(list)) continue;
+    for (const item of list) {
+      if (
+        item &&
+        item.id &&
+        item.id !== 'seed-1' &&
+        item.id !== 'seed-2' &&
+        item.name &&
+        item.message
+      ) {
+        const existing = map.get(item.id);
+        if (!existing || (!existing.photo && item.photo)) {
+          map.set(item.id, item);
+        }
+      }
+    }
+  }
+  return Array.from(map.values())
+    .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+    .slice(0, 100);
+}
 
 function loadSavedComments() {
   try {
     const raw = localStorage.getItem(COMMENTS_STORAGE_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed)
-      ? parsed.filter((item) => item.id !== 'seed-1' && item.id !== 'seed-2')
-      : [];
+    return mergeCommentLists(parsed);
   } catch {
     return [];
   }
@@ -64,8 +86,8 @@ function resizeAvatarFile(file) {
           reject(new Error('Canvas tidak tersedia'));
           return;
         }
-        canvas.width = 128;
-        canvas.height = 128;
+        canvas.width = 64;
+        canvas.height = 64;
         ctx.drawImage(
           img,
           (img.naturalWidth - side) / 2,
@@ -74,10 +96,10 @@ function resizeAvatarFile(file) {
           side,
           0,
           0,
-          128,
-          128
+          64,
+          64
         );
-        resolve(canvas.toDataURL('image/jpeg', 0.8));
+        resolve(canvas.toDataURL('image/jpeg', 0.65));
       };
       img.src = String(reader.result);
     };
@@ -102,6 +124,82 @@ export function Contact() {
   const [commentError, setCommentError] = useState('');
   const [postingComment, setPostingComment] = useState(false);
   const [cooldown, setCooldown] = useState(0);
+
+  useEffect(() => {
+    let active = true;
+
+    async function syncGlobalComments() {
+      const remoteItems = [];
+
+      try {
+        const apiRes = await fetch('/api/comments', { headers: { Accept: 'application/json' } });
+        if (apiRes.ok) {
+          const data = await apiRes.json();
+          if (Array.isArray(data?.comments)) {
+            remoteItems.push(...data.comments);
+          }
+        }
+      } catch {}
+
+      try {
+        const ntfyRes = await fetch(`https://ntfy.sh/${NTFY_DB_TOPIC}/json?poll=1&since=all`);
+        if (ntfyRes.ok) {
+          const text = await ntfyRes.text();
+          const lines = text.split('\n').filter(Boolean);
+          for (const line of lines) {
+            try {
+              const evt = JSON.parse(line);
+              if (evt.event === 'message' && evt.message) {
+                const parsed = JSON.parse(evt.message);
+                if (parsed && parsed.id && parsed.name && parsed.message) {
+                  remoteItems.push(parsed);
+                }
+              }
+            } catch {}
+          }
+        }
+      } catch {}
+
+      if (!active || remoteItems.length === 0) return;
+
+      setComments((prev) => {
+        const merged = mergeCommentLists(remoteItems, prev);
+        try {
+          localStorage.setItem(COMMENTS_STORAGE_KEY, JSON.stringify(merged));
+        } catch {}
+        return merged;
+      });
+    }
+
+    syncGlobalComments();
+
+    let es = null;
+    try {
+      es = new EventSource(`https://ntfy.sh/${NTFY_DB_TOPIC}/sse`);
+      es.onmessage = (e) => {
+        try {
+          const evt = JSON.parse(e.data);
+          if (evt.event === 'message' && evt.message) {
+            const incoming = JSON.parse(evt.message);
+            if (incoming && incoming.id && incoming.name && incoming.message) {
+              setComments((prev) => {
+                const merged = mergeCommentLists([incoming], prev);
+                try {
+                  localStorage.setItem(COMMENTS_STORAGE_KEY, JSON.stringify(merged));
+                } catch {}
+                return merged;
+              });
+            }
+          }
+        } catch {}
+      };
+    } catch {}
+
+    return () => {
+      active = false;
+      if (es) es.close();
+    };
+  }, []);
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -171,7 +269,7 @@ export function Contact() {
     }).catch(() => {});
   };
 
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
     setCommentError('');
     const name = commentForm.name.trim();
@@ -181,19 +279,37 @@ export function Contact() {
     setPostingComment(true);
     notifyCommentToPhone(name, message);
 
+    const newComment = {
+      id: `c-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      name,
+      message,
+      photo: commentForm.photo || '',
+      createdAt: new Date().toISOString(),
+    };
+
+    const updated = mergeCommentLists([newComment], comments);
+    setComments(updated);
+    try {
+      localStorage.setItem(COMMENTS_STORAGE_KEY, JSON.stringify(updated));
+    } catch {}
+
+    // Simpan ke stream global ntfy agar langsung muncul real-time di semua perangkat
+    const ntfyPayload = JSON.stringify(newComment);
+    const streamItem =
+      ntfyPayload.length <= 3800 ? ntfyPayload : JSON.stringify({ ...newComment, photo: '' });
+    fetch(`https://ntfy.sh/${NTFY_DB_TOPIC}`, {
+      method: 'POST',
+      body: streamItem,
+    }).catch(() => {});
+
+    // Simpan ke penyimpanan permanen via Vercel API
+    fetch('/api/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newComment),
+    }).catch(() => {});
+
     setTimeout(() => {
-      const newComment = {
-        id: `c-${Date.now()}`,
-        name,
-        message,
-        photo: commentForm.photo || '',
-        createdAt: new Date().toISOString(),
-      };
-      const updated = [newComment, ...comments].slice(0, 100);
-      setComments(updated);
-      try {
-        localStorage.setItem(COMMENTS_STORAGE_KEY, JSON.stringify(updated));
-      } catch {}
       setPostingComment(false);
       setCooldown(COOLDOWN_SECONDS);
       setCommentForm({ name: '', message: '', photo: '', photoName: '' });
@@ -206,7 +322,7 @@ export function Contact() {
           colors: ['#dc2626', '#f59e0b', '#fbbf24'],
         });
       } catch {}
-    }, 350);
+    }, 300);
   };
 
   const handleContactSubmit = async (e) => {
