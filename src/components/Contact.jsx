@@ -160,7 +160,30 @@ export function Contact() {
         }
       } catch {}
 
-      if (!active || remoteItems.length === 0) return;
+      if (!active) return;
+
+      // Jika di localStorage perangkat ini ada komentar lama yang belum ada di server, otomatis unggah ke server
+      const localItems = loadSavedComments();
+      const remoteIds = new Set(remoteItems.map((item) => item.id));
+      for (const localItem of localItems) {
+        if (localItem?.id && !remoteIds.has(localItem.id)) {
+          fetch('/api/comments', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(localItem),
+          }).catch(() => {});
+
+          const payload = JSON.stringify(localItem);
+          const streamItem =
+            payload.length <= 3800 ? payload : JSON.stringify({ ...localItem, photo: '' });
+          fetch(`https://ntfy.sh/${NTFY_DB_TOPIC}`, {
+            method: 'POST',
+            body: streamItem,
+          }).catch(() => {});
+        }
+      }
+
+      if (remoteItems.length === 0 && localItems.length === 0) return;
 
       setComments((prev) => {
         const merged = mergeCommentLists(remoteItems, prev);
@@ -183,10 +206,21 @@ export function Contact() {
             const incoming = JSON.parse(evt.message);
             if (incoming && incoming.id && incoming.name && incoming.message) {
               setComments((prev) => {
+                const alreadyExists = prev.some((c) => c.id === incoming.id);
                 const merged = mergeCommentLists([incoming], prev);
                 try {
                   localStorage.setItem(COMMENTS_STORAGE_KEY, JSON.stringify(merged));
                 } catch {}
+                if (!alreadyExists && typeof window !== 'undefined' && 'Notification' in window) {
+                  if (Notification.permission === 'granted') {
+                    try {
+                      new Notification(`Komentar Baru dari ${incoming.name}`, {
+                        body: incoming.message,
+                        icon: '/favicon.svg',
+                      });
+                    } catch {}
+                  }
+                }
                 return merged;
               });
             }
