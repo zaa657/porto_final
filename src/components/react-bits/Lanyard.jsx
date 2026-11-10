@@ -212,7 +212,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.fillRect(0, 0, w, h);
 
   // Subtle geometric grid lines like frontCard.webp
-  ctx.strokeStyle = 'rgba(90, 20, 30, 0.09)';
+  ctx.strokeStyle = 'rgba(88, 28, 135, 0.09)';
   ctx.lineWidth = 1.5;
   for (let i = -h; i < w + h; i += 44) {
     ctx.beginPath();
@@ -228,7 +228,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
   }
 
   // Top Pill "EXECUTIVE" (in place of "JUNIOR")
-  ctx.fillStyle = '#24070c';
+  ctx.fillStyle = '#140526';
   ctx.fillRect(114, 54, 250, 68);
   ctx.fillStyle = '#f3ebd9';
   ctx.font = '900 40px "Space Grotesk", "Arial Black", sans-serif';
@@ -239,21 +239,21 @@ function drawFrontCardCanvas(canvas, photoImg) {
   // Top right emblem + "EJAA THALA / ENTERPRISE"
   ctx.save();
   ctx.translate(710, 88);
-  ctx.fillStyle = '#8b1122';
+  ctx.fillStyle = '#6b21a8';
   ctx.beginPath();
   ctx.arc(0, 0, 42, 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = '#d4af37';
+  ctx.strokeStyle = '#a855f7';
   ctx.lineWidth = 4;
   ctx.stroke();
-  ctx.fillStyle = '#f5d77f';
+  ctx.fillStyle = '#e9d5ff';
   ctx.font = '800 28px "Space Grotesk", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('ET', 0, 2);
   ctx.restore();
 
-  ctx.fillStyle = '#1e060a';
+  ctx.fillStyle = '#110420';
   ctx.font = '800 28px "Space Grotesk", sans-serif';
   ctx.textAlign = 'left';
   ctx.fillText('EJAA THALA', 768, 60);
@@ -261,7 +261,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.fillText('PORTFOLIO • IDN', 768, 120);
 
   // Technical bounding box around "DEVELOPER"
-  ctx.strokeStyle = '#24070c';
+  ctx.strokeStyle = '#140526';
   ctx.lineWidth = 3;
   ctx.strokeRect(48, 144, w - 96, 232);
   [
@@ -270,7 +270,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
     [48, 376],
     [w - 48, 376],
   ].forEach(([cx, cy]) => {
-    ctx.fillStyle = '#24070c';
+    ctx.fillStyle = '#140526';
     ctx.beginPath();
     ctx.arc(cx, cy, 12, 0, Math.PI * 2);
     ctx.fill();
@@ -284,7 +284,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.stroke();
 
   // Giant "DEVELOPER" text
-  ctx.fillStyle = '#24070c';
+  ctx.fillStyle = '#140526';
   ctx.font = '900 162px "Space Grotesk", Impact, "Arial Black", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -295,11 +295,11 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.translate(340, 265);
   ctx.rotate(-0.32);
   ctx.fillStyle = '#f3ebd9';
-  ctx.strokeStyle = '#24070c';
+  ctx.strokeStyle = '#140526';
   ctx.lineWidth = 4;
   ctx.fillRect(-58, -28, 116, 56);
   ctx.strokeRect(-58, -28, 116, 56);
-  ctx.fillStyle = '#24070c';
+  ctx.fillStyle = '#140526';
   ctx.font = '800 22px "Space Grotesk", sans-serif';
   ctx.fillText('original', 0, -10);
   for (let s = -45; s <= 45; s += 18) {
@@ -313,21 +313,21 @@ function drawFrontCardCanvas(canvas, photoImg) {
 
   // Left backdrop rectangle behind portrait (deep crimson noir texture)
   const backdropGrad = ctx.createLinearGradient(85, 430, 440, 1220);
-  backdropGrad.addColorStop(0, '#3b0711');
-  backdropGrad.addColorStop(0.5, '#1c0408');
-  backdropGrad.addColorStop(1, '#090204');
+  backdropGrad.addColorStop(0, '#2e0959');
+  backdropGrad.addColorStop(0.5, '#130426');
+  backdropGrad.addColorStop(1, '#05020a');
   ctx.fillStyle = backdropGrad;
   ctx.fillRect(85, 434, 360, 790);
 
   // Right vertical frame "CREATIVE ARCHITECT" (matching "TEKNIK JARINGAN")
-  ctx.strokeStyle = '#24070c';
+  ctx.strokeStyle = '#140526';
   ctx.lineWidth = 3;
   ctx.strokeRect(755, 432, 224, 845);
   [
     [755, 432],
     [979, 432],
   ].forEach(([cx, cy]) => {
-    ctx.fillStyle = '#24070c';
+    ctx.fillStyle = '#140526';
     ctx.beginPath();
     ctx.arc(cx, cy, 12, 0, Math.PI * 2);
     ctx.fill();
@@ -336,7 +336,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.save();
   ctx.translate(868, 860);
   ctx.rotate(-Math.PI / 2);
-  ctx.fillStyle = '#24070c';
+  ctx.fillStyle = '#140526';
   ctx.font = '900 84px "Space Grotesk", Impact, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -369,7 +369,7 @@ function drawFrontCardCanvas(canvas, photoImg) {
     ctx.drawImage(photoImg, dx, dy, dw, dh);
 
     // Subtle luxury vignette border on portrait
-    ctx.strokeStyle = 'rgba(212, 175, 55, 0.65)';
+    ctx.strokeStyle = 'rgba(168, 85, 247, 0.65)';
     ctx.lineWidth = 5;
     ctx.strokeRect(px + 2, py + 2, pw - 4, ph - 4);
     ctx.restore();
@@ -383,10 +383,10 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.shadowBlur = 18;
   ctx.fillStyle = '#ede3c8';
   ctx.fillRect(-284, -46, 568, 92);
-  ctx.strokeStyle = '#8b1122';
+  ctx.strokeStyle = '#6b21a8';
   ctx.lineWidth = 3;
   ctx.strokeRect(-278, -40, 556, 80);
-  ctx.fillStyle = '#24070c';
+  ctx.fillStyle = '#140526';
   ctx.font = '900 54px "Space Grotesk", "Arial Black", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -394,9 +394,9 @@ function drawFrontCardCanvas(canvas, photoImg) {
   ctx.restore();
 
   // Bottom Dark Crimson-Obsidian Footer Bar
-  ctx.fillStyle = '#180408';
+  ctx.fillStyle = '#0e031c';
   ctx.fillRect(0, 1296, w, h - 1296);
-  ctx.strokeStyle = '#d4af37';
+  ctx.strokeStyle = '#a855f7';
   ctx.lineWidth = 3;
   ctx.beginPath();
   ctx.moveTo(0, 1296);
@@ -442,7 +442,7 @@ function drawBackCardCanvas(canvas) {
   ctx.fillRect(0, 0, w, h);
 
   // Grid lines
-  ctx.strokeStyle = 'rgba(90, 20, 30, 0.08)';
+  ctx.strokeStyle = 'rgba(88, 28, 135, 0.08)';
   ctx.lineWidth = 1.5;
   for (let i = -h; i < w + h; i += 44) {
     ctx.beginPath();
@@ -456,11 +456,11 @@ function drawBackCardCanvas(canvas) {
   ctx.translate(235, 155);
   ctx.rotate(-0.14);
   ctx.fillStyle = '#efe5cf';
-  ctx.strokeStyle = '#24070c';
+  ctx.strokeStyle = '#140526';
   ctx.lineWidth = 4;
   ctx.fillRect(-195, -80, 390, 160);
   ctx.strokeRect(-195, -80, 390, 160);
-  ctx.fillStyle = '#24070c';
+  ctx.fillStyle = '#140526';
   ctx.font = '900 62px "Space Grotesk", Impact, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -479,21 +479,21 @@ function drawBackCardCanvas(canvas) {
   // Top right emblem
   ctx.save();
   ctx.translate(550, 155);
-  ctx.fillStyle = '#8b1122';
+  ctx.fillStyle = '#6b21a8';
   ctx.beginPath();
   ctx.arc(0, 0, 62, 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = '#d4af37';
+  ctx.strokeStyle = '#a855f7';
   ctx.lineWidth = 5;
   ctx.stroke();
-  ctx.fillStyle = '#f5d77f';
+  ctx.fillStyle = '#e9d5ff';
   ctx.font = '900 42px "Space Grotesk", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('ET', 0, 2);
   ctx.restore();
 
-  ctx.fillStyle = '#24070c';
+  ctx.fillStyle = '#140526';
   ctx.font = '900 42px "Space Grotesk", sans-serif';
   ctx.textAlign = 'left';
   ctx.fillText('EJAA THALA', 635, 118);
@@ -501,9 +501,9 @@ function drawBackCardCanvas(canvas) {
   ctx.fillText('PORTFOLIO • IDN', 635, 206);
 
   // Center Dark Panel "CONNECT OUR SOSMED" + QR Code
-  ctx.fillStyle = '#180408';
+  ctx.fillStyle = '#0e031c';
   ctx.fillRect(90, 286, 718, 900);
-  ctx.strokeStyle = '#d4af37';
+  ctx.strokeStyle = '#a855f7';
   ctx.lineWidth = 3;
   ctx.strokeRect(90, 286, 718, 900);
 
@@ -564,7 +564,7 @@ function drawBackCardCanvas(canvas) {
   ctx.roundRect(qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 16);
   ctx.fill();
 
-  ctx.fillStyle = '#0a0204';
+  ctx.fillStyle = '#05020a';
   const qrStartX = qrBoxX + pad;
   const qrStartY = qrBoxY + pad;
   for (let r = 0; r < cells; r++) {
@@ -577,7 +577,7 @@ function drawBackCardCanvas(canvas) {
   }
 
   // Right vertical bar
-  ctx.fillStyle = '#180408';
+  ctx.fillStyle = '#0e031c';
   ctx.fillRect(838, 240, 186, 1050);
   ctx.save();
   ctx.translate(928, 780);
@@ -590,9 +590,9 @@ function drawBackCardCanvas(canvas) {
   ctx.restore();
 
   // Bottom Name Banner
-  ctx.fillStyle = '#180408';
+  ctx.fillStyle = '#0e031c';
   ctx.fillRect(108, 1290, 816, 200);
-  ctx.strokeStyle = '#d4af37';
+  ctx.strokeStyle = '#a855f7';
   ctx.lineWidth = 3;
   ctx.strokeRect(108, 1290, 816, 200);
 
@@ -601,7 +601,7 @@ function drawBackCardCanvas(canvas) {
   ctx.textAlign = 'center';
   ctx.fillText('EJAA THALA', 516, 1368);
   ctx.font = '500 38px "Inter", sans-serif';
-  ctx.fillStyle = '#d4af37';
+  ctx.fillStyle = '#a855f7';
   ctx.fillText('—  Executive Developer  —', 516, 1435);
 }
 
@@ -613,11 +613,11 @@ function drawStrapCanvas(canvas) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return h / w;
 
-  ctx.fillStyle = '#090305';
+  ctx.fillStyle = '#06020c';
   ctx.fillRect(0, 0, w, h);
 
   // Subtle crimson/gold edge stitching
-  ctx.fillStyle = 'rgba(212, 175, 55, 0.35)';
+  ctx.fillStyle = 'rgba(168, 85, 247, 0.35)';
   for (let y = 0; y < h; y += 16) {
     ctx.fillRect(12, y, 3, 9);
     ctx.fillRect(w - 15, y, 3, 9);

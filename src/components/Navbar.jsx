@@ -52,7 +52,7 @@ export function Navbar() {
       { autoAlpha: 1, scale: 1, duration: 0.55, ease: 'back.out(2)' }
     );
     const pulse = gsap.to(pill, {
-      boxShadow: 'inset 0 1px 0 rgba(255,255,255,.22), 0 0 28px rgba(220,38,38,.42)',
+      boxShadow: 'inset 0 1px 0 rgba(255,255,255,.22), 0 0 28px rgba(147,51,234,.48)',
       duration: 1.5,
       delay: 0.55,
       repeat: -1,

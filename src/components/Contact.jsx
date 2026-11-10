@@ -353,7 +353,7 @@ export function Contact() {
           particleCount: 55,
           spread: 60,
           origin: { y: 0.65 },
-          colors: ['#dc2626', '#f59e0b', '#fbbf24'],
+          colors: ['#9333ea', '#a855f7', '#c084fc'],
         });
       } catch {}
     }, 300);
@@ -422,7 +422,7 @@ export function Contact() {
           particleCount: 80,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#dc2626', '#f59e0b', '#fbbf24', '#fb7185'],
+          colors: ['#9333ea', '#a855f7', '#c084fc', '#e9d5ff'],
         });
       } catch {}
       setTimeout(() => setMsgSuccess(false), 6000);

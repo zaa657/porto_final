@@ -32,7 +32,7 @@ export const PROFILE = {
       label: "Instagram",
       sub: "@portofolio.thala",
       url: "https://www.instagram.com/portofolio.thala/",
-      logo: "https://cdn.simpleicons.org/instagram/f43f5e",
+      logo: "https://cdn.simpleicons.org/instagram/a855f7",
     },
     {
       name: "TikTok",

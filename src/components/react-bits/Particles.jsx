@@ -622,7 +622,7 @@ export function AmbientParticlesAndMeteors() {
   return (
     <>
       <Particles
-        particleColors={['#ffffff', '#fca5a5', '#fde68a']}
+        particleColors={['#ffffff', '#d8b4fe', '#a855f7']}
         particleCount={isMobile ? 280 : 660}
         pixelRatio={isMobile ? 1 : undefined}
         particleSpread={10}
