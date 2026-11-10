@@ -22,9 +22,9 @@ export const PROFILE = {
   footerTagline:
     "Membangun pengalaman web modern dengan presisi kode, tipografi tajam, dan dimensi 3D interaktif.",
   spotifyPlaylistUrl:
-    "https://open.spotify.com/playlist/3XXwLc91K6JYhtotQO98S4?si=eefda73830d04e76",
+    "https://open.spotify.com/playlist/1hn4YRkVXPdXkUp3Qz9F7o?si=ec09f0f00cde4891",
   spotifyEmbedUrl:
-    "https://open.spotify.com/embed/playlist/3XXwLc91K6JYhtotQO98S4?utm_source=generator&theme=0&si=eefda73830d04e76",
+    "https://open.spotify.com/embed/playlist/1hn4YRkVXPdXkUp3Qz9F7o?utm_source=generator&theme=0&si=ec09f0f00cde4891",
   socials: [
     {
       name: "Instagram",
