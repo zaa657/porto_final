@@ -8,6 +8,41 @@ export function About() {
   const stageRef = useRef(null);
   const timeoutRef = useRef(null);
 
+  const hideTimeoutRef = useRef(null);
+
+  const updateSpotlight = (clientX, clientY) => {
+    const stage = stageRef.current;
+    const portrait = stage?.querySelector('.about-portrait');
+    if (!stage || !portrait) return;
+    clearTimeout(timeoutRef.current);
+    clearTimeout(hideTimeoutRef.current);
+    const rect = portrait.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const hx = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+    const hy = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
+    stage.style.setProperty('--hover-x', `${hx}%`);
+    stage.style.setProperty('--hover-y', `${hy}%`);
+    stage.classList.add('spider-hovered');
+    stage.dataset.spiderVisible = 'true';
+  };
+
+  const endSpotlight = (delayMs = 0) => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    clearTimeout(hideTimeoutRef.current);
+    clearTimeout(timeoutRef.current);
+    if (delayMs > 0) {
+      hideTimeoutRef.current = setTimeout(() => {
+        delete stage.dataset.spiderVisible;
+      }, delayMs);
+    } else {
+      delete stage.dataset.spiderVisible;
+    }
+    timeoutRef.current = setTimeout(() => {
+      stage.classList.remove('spider-hovered');
+    }, 7000);
+  };
+
   useEffect(() => {
     const sec = sectionRef.current;
     const stage = stageRef.current;
@@ -18,6 +53,7 @@ export function About() {
         stage.classList.toggle('is-in-view', entry.isIntersecting);
         if (!entry.isIntersecting) {
           clearTimeout(timeoutRef.current);
+          clearTimeout(hideTimeoutRef.current);
           stage.classList.remove('spider-hovered');
           delete stage.dataset.spiderVisible;
         }
@@ -28,6 +64,7 @@ export function About() {
     return () => {
       io.disconnect();
       clearTimeout(timeoutRef.current);
+      clearTimeout(hideTimeoutRef.current);
     };
   }, []);
 
@@ -62,27 +99,29 @@ export function About() {
           ref={stageRef}
           className="about-portrait-stage"
           aria-label="Portrait with Scarface Crimson Gold hover effect"
-          onPointerMove={(e) => {
-            const stage = stageRef.current;
-            const portrait = stage?.querySelector('.about-portrait');
-            if (!stage || !portrait) return;
-            clearTimeout(timeoutRef.current);
-            const rect = portrait.getBoundingClientRect();
-            const hx = ((e.clientX - rect.left) / rect.width) * 100;
-            const hy = ((e.clientY - rect.top) / rect.height) * 100;
-            stage.style.setProperty('--hover-x', `${hx}%`);
-            stage.style.setProperty('--hover-y', `${hy}%`);
-            stage.classList.add('spider-hovered');
-            stage.dataset.spiderVisible = 'true';
+          onPointerDown={(e) => {
+            updateSpotlight(e.clientX, e.clientY);
           }}
-          onPointerLeave={() => {
-            const stage = stageRef.current;
-            if (!stage) return;
-            delete stage.dataset.spiderVisible;
-            clearTimeout(timeoutRef.current);
-            timeoutRef.current = setTimeout(() => {
-              stage.classList.remove('spider-hovered');
-            }, 7000);
+          onPointerMove={(e) => {
+            updateSpotlight(e.clientX, e.clientY);
+          }}
+          onPointerLeave={(e) => {
+            if (e.pointerType === 'touch') return;
+            endSpotlight(0);
+          }}
+          onTouchStart={(e) => {
+            const touch = e.touches?.[0];
+            if (touch) updateSpotlight(touch.clientX, touch.clientY);
+          }}
+          onTouchMove={(e) => {
+            const touch = e.touches?.[0];
+            if (touch) updateSpotlight(touch.clientX, touch.clientY);
+          }}
+          onTouchEnd={() => {
+            endSpotlight(1200);
+          }}
+          onTouchCancel={() => {
+            endSpotlight(600);
           }}
         >
           <div className="about-portrait-glow" />
@@ -91,12 +130,14 @@ export function About() {
               className="about-person-image"
               src={PROFILE.photoUrl}
               alt={PROFILE.fullName}
+              draggable={false}
             />
             <SkeletonImage
               className="about-spider-image"
               src={PROFILE.hoverPhotoUrl || PROFILE.photoUrl}
               alt=""
               aria-hidden="true"
+              draggable={false}
             />
           </div>
           <span className="about-portrait-orbit about-portrait-orbit-one" />
