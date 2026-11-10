@@ -193,13 +193,13 @@ export function Portfolio({ onOpenProject }) {
                     as="article"
                     className="portfolio-skill-card"
                     edgeSensitivity={0}
-                    glowColor="275 90 65"
-                    backgroundColor="#0d051a"
+                    glowColor="276 100 35"
+                    backgroundColor="#0b0014"
                     borderRadius={20}
                     glowRadius={28}
                     glowIntensity={2.2}
                     coneSpread={23}
-                    colors={['#9333ea', '#a855f7', '#c084fc']}
+                    colors={['#290044', '#4a007a', '#6b00b3']}
                   >
                     <div className="portfolio-skill-card-content">
                       <div className="portfolio-skill-mark">
